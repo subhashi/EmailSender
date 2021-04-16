@@ -1,4 +1,3 @@
-from smtplib import SMTPAuthenticationError, SMTPResponseException
 from tkinter import *
 from tkinter import messagebox, filedialog
 import yagmail
@@ -11,7 +10,6 @@ import re
 def validate_email(email):
     regex = r'^(\w|\.|\_|\-)+[@](\w|\_|\-|\.)+[.]\w{2,3}$'
     return bool(re.compile(regex).match(email))
-
 
 class Sender:
     def __init__(self, root):
@@ -129,9 +127,7 @@ class Sender:
 
         else:
             yag = yagmail.SMTP(user=self.user_email, password=self.user_password)
-
-            if not self.to_email_list:
-                self.to_email_list = self.to_entry.get().split(',')
+            self.to_email_list = self.to_entry.get().split(',')
 
             if self.attach:
                 try:
@@ -151,7 +147,6 @@ class Sender:
 
     def select_csv(self):
         self.to_email_list = []
-        print(self.to_email_list)
 
         Tk().withdraw()
         text_file_extensions = ['*.csv']
